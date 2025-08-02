@@ -1,8 +1,12 @@
 import { AppContext } from "@/components/context";
+import { ThemeToggle } from "@/components/theme/toggle";
+import { getSession } from "@/lib/auth/server";
 import { meta } from "@/lib/config";
-import { days_one, questrial, space_mono } from "@/lib/fonts";
+import { code, display, text } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
+import Link from "next/link";
+import { Suspense } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -34,14 +38,34 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          days_one.variable,
-          questrial.variable,
-          space_mono.variable,
+          display.variable,
+          text.variable,
+          code.variable,
           "antialiased"
         )}
       >
-        <AppContext>{children}</AppContext>
+        <AppContext>
+          <div className="absolute top-0 right-0 p-4 z-50">
+            <ThemeToggle />
+          </div>
+          <Suspense>
+            <Session />
+          </Suspense>
+          {children}
+        </AppContext>
       </body>
     </html>
+  );
+}
+
+async function Session() {
+  const { user } = await getSession();
+  return user ? (
+    <span>{user.name}</span>
+  ) : (
+    <div>
+      <Link href="/auth/login">Login</Link>
+      <Link href="/auth/register">Register</Link>
+    </div>
   );
 }

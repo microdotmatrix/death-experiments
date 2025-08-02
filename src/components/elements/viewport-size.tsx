@@ -5,7 +5,7 @@ export function ViewportSize({ align = "left" }: { align?: "left" | "right" }) {
     <div
       data-viewport-size=""
       className={cn(
-        "fixed bottom-16 z-50 flex size-9 items-center justify-center uppercase rounded-full bg-black p-3 font-display font-bold text-[11px] text-gray-300 hover:text-gray-100 border border-border/50 outline outline-1 outline-border hover:outline-primary/50 transition-colors duration-200",
+        "fixed bottom-16 z-50 flex size-9 items-center justify-center uppercase rounded-full bg-black p-3 font-code font-bold text-[11px] text-gray-300 hover:text-gray-100 border border-border/50 outline outline-1 outline-border hover:outline-primary/50 transition-colors duration-200",
         align === "left" ? "left-5" : "right-5"
       )}
     >
